@@ -3,6 +3,7 @@ import { config } from "dotenv";
 import cors from "cors";
 import authRoute from "./routes/auth.route.js";
 import productRoute from "./routes/product.route.js";
+import orderRoute from "./routes/order.route.js";
 import { connectDB } from "./lib/db.js";
 import cookieParser from "cookie-parser";
 
@@ -20,6 +21,7 @@ app.use(cors({
 
 app.use("/api/auth", authRoute);
 app.use("/api/products", productRoute);
+app.use("/api/order", orderRoute);
 
 app.listen(PORT, () => {
   console.log(`Server is listening on port: ${PORT}`);
