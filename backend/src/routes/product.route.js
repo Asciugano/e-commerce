@@ -15,7 +15,7 @@ const router = express.Router();
 
 router.get("/watchlist", protectedRoute, getWatchlist);
 router.post("/watchlist", protectedRoute, addToWatchlist);
-router.delete("/watchlist/:id", protectedRoute, removeToWatchlist);
+router.delete("/watchlist", protectedRoute, removeToWatchlist);
 
 router.post("/", protectedRoute, createProduct);
 router.put("/", protectedRoute, updateProduct);
