@@ -4,7 +4,8 @@ import { createOrder, deleteOrder, getOrder, updateOrder } from "../controllers/
 
 const router = exporess.Router();
 
-router.post("/:id", protectedRoute, getOrder);
+router.get("/:id", protectedRoute, getOrder);
+router.get("/", protectedRoute,)
 router.post("/", protectedRoute, createOrder);
 router.delete("/", protectedRoute, deleteOrder);
 router.put("/", protectedRoute, updateOrder);

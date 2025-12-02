@@ -1,3 +1,7 @@
+export async function getAllOrders(req, res) {
+  res.json({ message: "get all order" });
+}
+
 export async function getOrder(req, res) {
   res.json({ message: "get order" });
 }
