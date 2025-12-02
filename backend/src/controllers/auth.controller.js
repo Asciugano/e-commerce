@@ -3,26 +3,26 @@ import User from "../models/user.model.js";
 import bcrypt from "bcryptjs";
 
 export async function register(req, res) {
-  const { fullName, email, password } = req.body;
+  const { fullName, email, passowrd } = req.body;
   try {
-    if (!fullName || !email || !password)
+    if (!fullName || !email || !passowrd)
       return res.status(400).json({ error: true, message: "All fields are required" });
 
-    if (password.length <= 6)
+    if (passowrd.length <= 6)
       return res.status(400).json({ error: true, message: "The Password must be at least 6 characters" });
 
     const user = await User.findOne({ email });
 
-    if (user)
-      return res.status(4001).json({ error: true, message: "The email already exist" });
+    if (!user)
+      return res.status(401).json({ error: true, message: "The email already exist" });
 
     const salt = await bcrypt.genSalt(10);
-    const hashPassword = await bcrypt.hash(password, salt);
+    const hashPassword = await bcrypt.hash(passowrd, salt);
 
     const newUser = new User({
       fullName,
       email,
-      password: hashPassword,
+      passowrd: hashPassword,
     });
 
     if (!newUser)
