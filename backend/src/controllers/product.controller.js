@@ -1,3 +1,4 @@
+import cloudinary from "../lib/cloudinary.js";
 import Product from "../models/product.model.js";
 import User from "../models/user.model.js";
 
@@ -45,10 +46,19 @@ export async function createProduct(req, res) {
     if (price <= 0)
       return res.status(400).json({ error: true, message: "Invalid price" });
 
+    const resources_urls = [];
+    if (photos && photos.length > 0) {
+      const uploadedPhotos = await Promise.all(
+        photos.map((photo) => cloudinary.uploader.upload(photo))
+      );
+
+      uploadedPhotos.forEach((res) => resources_urls.push(res.secure_url));
+    }
+
     const newProduct = new Product({
       name,
       price,
-      photos: photos ?? [],
+      photos: resources_urls,
       seller: user._id,
     });
 
